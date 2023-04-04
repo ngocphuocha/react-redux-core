@@ -11,9 +11,11 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Login from "./pages/Login";
 import Users from "./pages/Users";
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import { Provider } from "react-redux";
 import allReducers from "./store/reducers";
+import Todos from "./pages/Todos";
+import thunk from "redux-thunk";
 
 const router = createBrowserRouter([
   {
@@ -28,9 +30,14 @@ const router = createBrowserRouter([
     path: "/users/:userId",
     element: <Users />,
   },
+
+  {
+    path: "/todos",
+    element: <Todos />,
+  },
 ]);
 
-const store = createStore(allReducers);
+const store = createStore(allReducers, applyMiddleware(thunk));
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
